@@ -1,0 +1,14 @@
+import { createWithdrawlRequest } from "../services/withdrawlRequestService.js";
+import { userJwtVerify } from "../services/jwtVerificationService.js";
+
+const withdrawlRequest = async (req, res) => {
+  const authUser = await userJwtVerify(req.header('token'));
+
+  const response = await createWithdrawlRequest(authUser, req.body);
+
+  const status = response.status || 200;
+
+  return res.status(status).json(response);
+};
+
+export { withdrawlRequest };

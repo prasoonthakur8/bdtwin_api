@@ -1,0 +1,534 @@
+{
+	"info": {
+		"_postman_id": "b6f641aa-5267-4c4e-8235-e76a6a896dff",
+		"name": "bdtwin",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "sign-in",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"user_name\": \"agent\",\n    \"password\": \"156354111\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/sign-in",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"sign-in"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get-users-by-role",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"role\": \"agent\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/get-users-by-role",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"get-users-by-role"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create-super-agent",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiNjRjNzk1MTI2OWUyOWZjNTQ0ZmJlYjllIiwiaWF0IjoxNjkwODAxODY5LCJleHAiOjE2OTA4MDU0Njl9.D8EOK_TM0iouud6Z2HldxaFaGKwhdasFk-C9-FKrIHM",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"user_name\": \"super_agent\",\n    \"email\": \"superagent@bdtwin.com\",\n    \"phone_number\": \"156354111\",\n    \"password\": \"156354111\",\n    \"full_name\": \"Super Agent\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/admin/create-super-agent",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"admin",
+						"create-super-agent"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create-agent",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiNjRjNzk2ZGI2OWUyOWZjNTQ0ZmJlYmFkIiwiaWF0IjoxNjkwODAxOTAzLCJleHAiOjE2OTA4MDU1MDN9.7tbbuDpKKe_eQzni9mjqekmFCx_j13r_n88tS4bWi1U",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"user_name\": \"agent\",\n    \"email\": \"agent@bdtwin.com\",\n    \"phone_number\": \"111354156\",\n    \"password\": \"156354111\",\n    \"full_name\": \"Agent\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/super-agent/create-agent",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"super-agent",
+						"create-agent"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create-player",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiNjRjNzk3MDI2OWUyOWZjNTQ0ZmJlYmJjIiwiaWF0IjoxNjkxMTM1MTEzLCJleHAiOjE2OTExMzg3MTN9.xVxJ5BNgrKi22r2FzArsL7JjRUzVg14eyzrbLXvrDFY",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"user_name\": \"player27\",\n    \"email\": \"player27@bdtwin.com\",\n    \"phone_number\": \"35115611127\",\n    \"password\": \"156354111\",\n    \"full_name\": \"Player\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/agent/create-player",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"agent",
+						"create-player"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "log-out",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiNjRiOTJiMDBkOWIyOGIyYmUzYzViY2ZkIiwiaWF0IjoxNjg5ODU3MDIwLCJleHAiOjE2ODk4NjA2MjB9.IzQml1efqqK6hnVZaaCIsaWfOvJONAkH1dpeapTmfVg",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/api/log-out",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"log-out"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "refresh-token",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiNjRiOTJiMDBkOWIyOGIyYmUzYzViY2ZkIiwiaWF0IjoxNjg5OTIyMTk2LCJleHAiOjE2ODk5MjU3OTZ9.7Gih3-8SvqPjcIYa2xl-EAq9CDPPV3LrEYkvBdd9BMo",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/api/refresh-token",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"refresh-token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "coin-transfer",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiNjRjNzk2ZGI2OWUyOWZjNTQ0ZmJlYmFkIiwiaWF0IjoxNjkwOTYzMTYzLCJleHAiOjE2OTA5NjY3NjN9.MPpwXNZiJLtIb4Ww_fLvo6dxPlYkjzoYjJAQzFSfqJk",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"sender\": \"64c796db69e29fc544fbebad\",\n    \"recipient\": \"64c7951269e29fc544fbeb9e\",\n    \"amount\": 3000\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/coin-transfer",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"coin-transfer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get-user-by-id",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiNjRiNjNiMGRkOWVhOWVhMjQxMGZhZDIyIiwiaWF0IjoxNjkwNDM4MDAwLCJleHAiOjE2OTA0NDE2MDB9.Y8qdOODbIlkgy9V9MItUgwG07zfc7hLGfHiRRmeh7aY",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"user_id\": \"64ba3066a1a85c92151818ec\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/get-user-by-id",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"get-user-by-id"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "coin-transfers-list",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiNjRjNzk1MTI2OWUyOWZjNTQ0ZmJlYjllIiwiaWF0IjoxNjkxNDA1MDk3LCJleHAiOjE2OTE0MDg2OTd9.1bSaJL7HBkb1iPfAlT8NlCoYqsWLRfBemiqQq3Adf9U",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"all\": false\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/coin-transfers-list",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"coin-transfers-list"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "user-profile-information-change",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiNjRjNzk1MTI2OWUyOWZjNTQ0ZmJlYjllIiwiaWF0IjoxNjkxMDQ4MzQ0LCJleHAiOjE2OTEwNTE5NDR9.6PJ5cn5NRhRnFGalJvCLcgPp6Q77G6A-o65s8_a0Oy4",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"user_id\": \"64c7951269e29fc544fbeb9e\",\n    \"user_name\": \"adminchik\",\n    \"email\": \"shefadmin@gmail.com\",\n    \"phone_number\": \"54654654654654654654\",\n    \"password\": \"888888888\",\n    \"full_name\": \"adminos albatros\",\n    \"country\": \"EU\",\n    \"date_of_birth\": \"1990-03-20\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/user-profile-information-change",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"user-profile-information-change"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "coin-withdrawl",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiNjRjNzk1MTI2OWUyOWZjNTQ0ZmJlYjllIiwiaWF0IjoxNjkwODAyOTU4LCJleHAiOjE2OTA4MDY1NTh9.rzl2A-yRS73mKBxcuMbkNlemXjDfvPkryr5gZflNoNU",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"sender\": \"64c796db69e29fc544fbebad\",\n    \"recipient\": \"64c7951269e29fc544fbeb9e\",\n    \"amount\": 3000\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/coin-withdrawl",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"coin-withdrawl"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deposit-request.ignore",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiNjRjNzk3NmU2OWUyOWZjNTQ0ZmJlYmNiIiwiaWF0IjoxNjkwODAyMjI5LCJleHAiOjE2OTA4MDU4Mjl9.gNrR7b2pxTh6B6gUrbGyyJEPBIvqc9pI9eWTzTerqBY",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"amount\": 1300\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/deposit-request",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"deposit-request"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "withdrawl-request.ignore",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiNjRjNzk2ZGI2OWUyOWZjNTQ0ZmJlYmFkIiwiaWF0IjoxNjkwODAyNjI0LCJleHAiOjE2OTA4MDYyMjR9.L1iRXdGndXNKIZxTve98GgIWM59zi6_UZG-mvqQUfHs",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"amount\": 1100\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/withdrawl-request",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"withdrawl-request"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "withdrawls-list",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiNjRjNzk1MTI2OWUyOWZjNTQ0ZmJlYjllIiwiaWF0IjoxNjkxNDA1MDk3LCJleHAiOjE2OTE0MDg2OTd9.1bSaJL7HBkb1iPfAlT8NlCoYqsWLRfBemiqQq3Adf9U",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"all\": false\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/withdrawls-list",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"withdrawls-list"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get-games-list",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/game-hub/get-games-list?page=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"game-hub",
+						"get-games-list"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

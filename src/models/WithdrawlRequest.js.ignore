@@ -1,0 +1,25 @@
+import mongoose from "mongoose";
+
+const withdrawlRequestSchema = new mongoose.Schema({
+  casher: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true
+  },
+  amount: {
+    type: Number,
+    required: true
+  },
+  status: {
+    type: Boolean,
+    default: false
+  },
+  accepted_from: {
+    type: mongoose.Schema.Types.ObjectId,
+  },
+  date_time: {
+    type: Date,
+    default: Date.now()
+  }
+});
+
+export default mongoose.model('WithdrawlRequest', withdrawlRequestSchema);

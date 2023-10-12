@@ -1,0 +1,28 @@
+import WithdrawlRequest from "../models/WithdrawlRequest.js";
+import Wallet from "../models/Wallet.js";
+
+const createWithdrawlRequest = async (authUser, req) => {
+  try {
+    const userWallet = await Wallet.findOne({ user: authUser });
+    
+    if (!(userWallet.balance >= req.amount))
+      return { message: 'Not enough funds.', status: 403 };
+
+    const withdrawlRequest = await WithdrawlRequest.create({
+      casher: authUser._id,
+      amount: req.amount
+    });
+
+    return {
+      message: {
+        userWithdrawlRequest: withdrawlRequest
+      }
+    };
+  } catch (error) {
+    console.error(error.message);
+
+    return { status: 500 };
+  }
+};
+
+export { createWithdrawlRequest };

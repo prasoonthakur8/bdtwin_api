@@ -1,0 +1,14 @@
+import { createDepositRequest } from "../services/depositRequestService.js";
+import { userJwtVerify } from "../services/jwtVerificationService.js";
+
+const depositRequest = async (req, res) => {
+  const authUser = await userJwtVerify(req.header('token'));
+
+  const response = await createDepositRequest(authUser, req.body);
+
+  const status = response.status || 200;
+
+  return res.status(status).json(response);
+};
+
+export { depositRequest };

@@ -1,0 +1,22 @@
+import DepositRequest from "../models/DepositRequest.js";
+
+const createDepositRequest = async (authUser, req) => {
+  try {
+    const depositRequest = await DepositRequest.create({
+      depositor: authUser,
+      amount: req.amount
+    });
+
+    return {
+      message: {
+        userDepositRequest: depositRequest
+      }
+    };
+  } catch (error) {
+    console.error(error.message);
+
+    return { status: 500 };
+  }
+};
+
+export { createDepositRequest };

@@ -1,0 +1,54 @@
+import mongoose from "mongoose";
+
+import { userJwtVerify } from "./jwtVerificationService.js";
+import Wallet from "../models/Wallet.js";
+import CoinTransfer from "../models/CoinTransfers.js";
+import DepositRequest from "../models/DepositRequest.js";
+
+const sendCoin = async (req) => {
+  const user = await userJwtVerify(req.header('token'));
+  let depositRequest = await DepositRequest.findOne({ _id: req.body.deposit_request });
+
+  const session = await mongoose.startSession();
+
+  try {
+    session.startTransaction();
+
+    let userWallet = await Wallet.findOne({ user: user });
+
+    if (!(userWallet.balance >= depositRequest.amount))
+      return { message: 'Not enough funds.', status: 403 };
+    
+    userWallet.balance -= depositRequest.amount;
+    await userWallet.save();
+
+    let recipientWallet = await Wallet.findOne({ user: depositRequest.depositor });
+    recipientWallet.balance += depositRequest.amount;
+    await recipientWallet.save();
+
+    const transaction = new CoinTransfer({
+      sender: user,
+      recipient: depositRequest.depositor,
+      amount: depositRequest.amount 
+    });
+    await transaction.save();
+
+    depositRequest.status = true;
+    depositRequest.accepted_from = user;
+    await depositRequest.save();
+
+    await session.commitTransaction();
+    session.endSession();
+
+    return { message: true };
+  } catch (error) {
+    await session.abortTransaction();
+    session.endSession();
+
+    console.error(error.message);
+
+    return { message: false };
+  }
+};
+
+export { sendCoin };
