@@ -82,7 +82,7 @@ const placeBet = async (req, res) => {
     res.json({
       status: true,
       message: "Bet placed successfully",
-      data: req.body,
+      data: updatedUser,
     });
   } catch (err) {
     res.status(500).json({ message: err.message });
