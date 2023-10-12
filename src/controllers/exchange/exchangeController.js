@@ -2,6 +2,7 @@ import axios from "axios";
 import Exchange from "../../models/Exchange.js";
 import User from "../../models/User.js";
 import { getUserData } from "../../resources/userResource.js";
+import Wallet from "../../models/Wallet.js";
 
 const getExchangeUserData = async (user_id) => {
   const userData = await User.findOne({ _id: user_id });
@@ -58,9 +59,10 @@ const getAllExchangeData = async (req, res) => {
   }
 };
 
-// API to place a bet
 const placeBet = async (req, res) => {
   try {
+    console.log("Request body:", req.body); // Debug log
+
     const user = await User.findOne({ _id: req.body.user_id });
 
     if (!user) {
@@ -70,28 +72,31 @@ const placeBet = async (req, res) => {
     const personData2 = await getUserData(user);
     console.log("personData2", personData2);
 
-    const updatedUser = await User.findOneAndUpdate(
-      { _id: req.body.user_id },
+    const updateballance = await Wallet.findOneAndUpdate(
+      { user: req.body.user_id },
       { $inc: { balance: -req.body.stake } }, // decrement balance by stake
       { new: true } // return the new user object
     );
 
-    if (updatedUser) {
-      console.log("Updated user balance:", updatedUser.balance);
+    const savedExchanges = await Exchange.insertMany(req.body);
+
+    if (savedExchanges) {
       res.json({
         status: true,
         message: "Bet placed successfully",
-        data: updatedUser,
-        wasUpdated: true, // Data was updated
+        data: savedExchanges,
+        wasUpdated: true,
       });
     } else {
+      console.log("Update failed for unknown reasons"); // Debug log
       res.json({
         status: false,
         message: "User not updated for some reason",
-        wasUpdated: false, // Data was not updated
+        wasUpdated: false,
       });
     }
   } catch (err) {
+    console.error("An error occurred:", err); // More detailed error log
     res.status(500).json({ message: err.message });
   }
 };
