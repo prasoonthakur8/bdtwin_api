@@ -72,18 +72,25 @@ const placeBet = async (req, res) => {
 
     const updatedUser = await User.findOneAndUpdate(
       { _id: req.body.user_id },
-      { $inc: { balance: -req.body.stake } }, // increment balance by 10
+      { $inc: { balance: -req.body.stake } }, // decrement balance by stake
       { new: true } // return the new user object
     );
 
-    console.log("Updated user balance:", updatedUser.balance);
-
-    // const savedExchanges = await Exchange.insertMany(req.body);
-    res.json({
-      status: true,
-      message: "Bet placed successfully",
-      data: updatedUser,
-    });
+    if (updatedUser) {
+      console.log("Updated user balance:", updatedUser.balance);
+      res.json({
+        status: true,
+        message: "Bet placed successfully",
+        data: updatedUser,
+        wasUpdated: true, // Data was updated
+      });
+    } else {
+      res.json({
+        status: false,
+        message: "User not updated for some reason",
+        wasUpdated: false, // Data was not updated
+      });
+    }
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
