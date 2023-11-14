@@ -75,13 +75,32 @@ router.get("/exchanges", getAllExchangeData);
 router.post("/placeBet", placeBet);
 
 router.get("/betfair/sports", fetchSportsData);
-router.get("/betfair/series", fetchSeriesBySportId);
-router.get("/betfair/matches", fetchMatchesBySeriesAndSportId);
-router.get("/betfair/markets", fetchMarketsByMatchId);
-router.get("/betfair/selections", fetchMarketSelections);
-router.get("/betfair/odds", fetchMarketOdds);
-router.get("/betfair/session", fetchSessionDataByMatchId);
-router.get("/betfair/score", fetchScore);
+
+// Include sportId as a route parameter
+router.get("/betfair/series/:sportId", fetchSeriesBySportId);
+
+// Include sportId and seriesId as route parameters
+router.get(
+  "/betfair/matches/:sportId/:seriesId",
+  fetchMatchesBySeriesAndSportId
+);
+
+// Include matchId as a route parameter
+router.get("/betfair/markets/:matchId", fetchMarketsByMatchId);
+
+// Include marketId as a route parameter
+router.get("/betfair/selections/:marketId", fetchMarketSelections);
+
+// Include marketId as a route parameter
+router.get("/betfair/odds/:marketId", fetchMarketOdds);
+
+// Include matchId as a route parameter
+router.get("/betfair/session/:matchId", fetchSessionDataByMatchId);
+
+// Include matchId as a route parameter
+router.get("/betfair/score/:matchId", fetchScore);
+
+// This route seems to be fetching all data without specific parameters
 router.get("/betfair/all", fetchAllData);
 
 export default router;
