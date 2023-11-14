@@ -24,9 +24,6 @@ const fetchSportsData = async (req, res) => {
 const fetchSeriesBySportId = async (req, res) => {
   const sportId = req.params.sportId;
 
-  console.log("sportId", sportId);
-
-  return res.json({ sportId });
   const apiUrl = `http://142.93.36.1/api/v1/fetch_data?Action=listCompetitions&EventTypeID=${sportId}`;
   try {
     const response = await axios.get(apiUrl);
