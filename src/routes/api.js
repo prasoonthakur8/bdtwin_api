@@ -29,6 +29,18 @@ import {
   placeBet,
 } from "../controllers/exchange/exchangeController.js";
 
+import {
+  fetchSportsData,
+  fetchSeriesBySportId,
+  fetchMatchesBySeriesAndSportId,
+  fetchMarketsByMatchId,
+  fetchMarketSelections,
+  fetchMarketOdds,
+  fetchSessionDataByMatchId,
+  fetchScore,
+  fetchAllData,
+} from "../controllers/exchange/betExchangeController.js";
+
 const router = express.Router();
 
 router.post("/sign-in", signIn);
@@ -61,5 +73,15 @@ router.get("/getLiveSData", getLiveSData);
 router.get("/get-users-data", getAllUsers);
 router.get("/exchanges", getAllExchangeData);
 router.post("/placeBet", placeBet);
+
+router.get("/betfair/sports", fetchSportsData);
+router.get("/betfair/series", fetchSeriesBySportId);
+router.get("/betfair/matches", fetchMatchesBySeriesAndSportId);
+router.get("/betfair/markets", fetchMarketsByMatchId);
+router.get("/betfair/selections", fetchMarketSelections);
+router.get("/betfair/odds", fetchMarketOdds);
+router.get("/betfair/session", fetchSessionDataByMatchId);
+router.get("/betfair/score", fetchScore);
+router.get("/betfair/all", fetchAllData);
 
 export default router;
