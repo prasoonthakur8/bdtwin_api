@@ -6,7 +6,7 @@ const handleError = (error, message) => {
     error: true,
     message,
     details: error.response ? error.response.data : error.message,
-    status: error.response ? error.response.status : null
+    status: error.response ? error.response.status : null,
   };
 };
 
@@ -64,7 +64,10 @@ const fetchMarketSelections = async (req, res) => {
     const response = await axios.get(apiUrl);
     return res.json(response.data);
   } catch (error) {
-    const errorResponse = handleError(error, "Error fetching market selections");
+    const errorResponse = handleError(
+      error,
+      "Error fetching market selections"
+    );
     return res.status(errorResponse.status || 500).json(errorResponse);
   }
 };
@@ -106,75 +109,83 @@ const fetchScore = async (req, res) => {
 };
 
 const fetchAllData = async (req, res) => {
-  // Extract requestParams from req.body, req.query, or req.params as needed
-  const requestParams = req.body; // Assuming the parameters are sent in the request body
-
   try {
     // Fetch Sports Data
-    if (requestParams.fetchSports) {
-      const sportsDataResponse = await fetchSportsData(req, res);
-      if (sportsDataResponse.error) return; // Response is already sent within fetchSportsData
-    }
+    const sportsResponse = await fetchSportsData();
+    const sportsData = sportsResponse.data;
 
-    // Fetch Series by Sport ID
-    if (requestParams.sportId) {
-      req.params.sportId = requestParams.sportId; // Setting params for the next function
-      const seriesDataResponse = await fetchSeriesBySportId(req, res);
-      if (seriesDataResponse.error) return; // Response is already sent within fetchSeriesBySportId
-    }
+    // Assuming the first sport for demonstration
+    const firstSportId = sportsData[0].eventType;
 
-    // Fetch Matches by Series and Sport ID
-    if (requestParams.sportId && requestParams.seriesId) {
-      req.params.sportId = requestParams.sportId;
-      req.params.seriesId = requestParams.seriesId;
-      const matchesDataResponse = await fetchMatchesBySeriesAndSportId(req, res);
-      if (matchesDataResponse.error) return; // Response is already sent within fetchMatchesBySeriesAndSportId
-    }
+    // Fetch Series Data
+    const seriesResponse = await fetchSeriesBySportId({
+      params: { sportId: firstSportId },
+    });
+    const seriesData = seriesResponse.data;
 
-    // Fetch Markets by Match/Event ID
-    if (requestParams.matchId) {
-      req.params.matchId = requestParams.matchId;
-      const marketsDataResponse = await fetchMarketsByMatchId(req, res);
-      if (marketsDataResponse.error) return; // Response is already sent within fetchMarketsByMatchId
-    }
+    // Assuming the first series for demonstration
+    const firstSeriesId = seriesData[0].competition.id;
+
+    // Fetch Matches Data
+    const matchesResponse = await fetchMatchesBySeriesAndSportId({
+      params: { sportId: firstSportId, seriesId: firstSeriesId },
+    });
+    const matchesData = matchesResponse.data;
+
+    // Assuming the first match for demonstration
+    const firstMatchId = matchesData[0].event.id;
+
+    // Fetch Markets Data
+    const marketsResponse = await fetchMarketsByMatchId({
+      params: { matchId: firstMatchId },
+    });
+    const marketsData = marketsResponse.data;
+
+    // Assuming the first market for demonstration
+    const firstMarketId = marketsData[0].marketId;
 
     // Fetch Market Selections
-    if (requestParams.marketId) {
-      req.params.marketId = requestParams.marketId;
-      const marketSelectionsDataResponse = await fetchMarketSelections(req, res);
-      if (marketSelectionsDataResponse.error) return; // Response is already sent within fetchMarketSelections
-    }
+    const marketSelectionsResponse = await fetchMarketSelections({
+      params: { marketId: firstMarketId },
+    });
+    const marketSelectionsData = marketSelectionsResponse.data;
 
     // Fetch Market Odds
-    if (requestParams.marketId) {
-      req.params.marketId = requestParams.marketId;
-      const marketOddsDataResponse = await fetchMarketOdds(req, res);
-      if (marketOddsDataResponse.error) return; // Response is already sent within fetchMarketOdds
-    }
+    const marketOddsResponse = await fetchMarketOdds({
+      params: { marketId: firstMarketId },
+    });
+    const marketOddsData = marketOddsResponse.data;
 
-    // Fetch Session Data by Match ID
-    if (requestParams.matchId) {
-      req.params.matchId = requestParams.matchId;
-      const sessionDataResponse = await fetchSessionDataByMatchId(req, res);
-      if (sessionDataResponse.error) return; // Response is already sent within fetchSessionDataByMatchId
-    }
+    // Fetch Session Data
+    const sessionDataResponse = await fetchSessionDataByMatchId({
+      params: { matchId: firstMatchId },
+    });
+    const sessionData = sessionDataResponse.data;
 
     // Fetch Score
-    if (requestParams.matchId) {
-      req.params.matchId = requestParams.matchId;
-      const scoreDataResponse = await fetchScore(req, res);
-      if (scoreDataResponse.error) return; // Response is already sent within fetchScore
-    }
+    const scoreResponse = await fetchScore({
+      params: { matchId: firstMatchId },
+    });
+    const scoreData = scoreResponse.data;
 
-    // If all fetches are successful, send a combined response
-    res.json({ success: true, message: "Data fetched successfully" });
+    // Aggregate all data
+    const allData = {
+      sportsData,
+      seriesData,
+      matchesData,
+      marketsData,
+      marketSelectionsData,
+      marketOddsData,
+      sessionData,
+      scoreData,
+    };
+
+    return res.json(allData);
   } catch (error) {
-    // Handle any unexpected errors
-    res.status(500).json({ error: true, message: "Internal server error", details: error.message });
+    const errorResponse = handleError(error, "Error fetching all data");
+    return res.status(errorResponse.status || 500).json(errorResponse);
   }
 };
-
-
 
 export {
   fetchSportsData,
@@ -185,5 +196,5 @@ export {
   fetchMarketOdds,
   fetchSessionDataByMatchId,
   fetchScore,
-  fetchAllData
+  fetchAllData,
 };
