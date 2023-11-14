@@ -183,7 +183,7 @@ const fetchAllData = async (req, res) => {
     return res.json(allData);
   } catch (error) {
     const errorResponse = handleError(error, "Error fetching all data");
-    return res.status(errorResponse.status || 500).json(errorResponse);
+    return res.status(errorResponse?.status || 500).json(error);
   }
 };
 
