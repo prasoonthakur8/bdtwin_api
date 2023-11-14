@@ -1,5 +1,7 @@
 import axios from "axios";
 
+const BASE_URL = "http://142.93.36.1/api/v1/fetch_data";
+
 const handleError = (error, message) => {
   console.error(message, error);
   return {
@@ -11,7 +13,7 @@ const handleError = (error, message) => {
 };
 
 const fetchSportsData = async (req, res) => {
-  const apiUrl = "http://142.93.36.1/api/v1/fetch_data?Action=listEventTypes";
+  const apiUrl = `${BASE_URL}?Action=listEventTypes`;
   try {
     const response = await axios.get(apiUrl);
     return res.json(response.data);
@@ -24,7 +26,7 @@ const fetchSportsData = async (req, res) => {
 const fetchSeriesBySportId = async (req, res) => {
   const sportId = req.params.sportId;
 
-  const apiUrl = `http://142.93.36.1/api/v1/fetch_data?Action=listCompetitions&EventTypeID=${sportId}`;
+  const apiUrl = `${BASE_URL}?Action=listCompetitions&EventTypeID=${sportId}`;
   try {
     const response = await axios.get(apiUrl);
     return res.json(response.data);
@@ -36,7 +38,7 @@ const fetchSeriesBySportId = async (req, res) => {
 
 const fetchMatchesBySeriesAndSportId = async (req, res) => {
   const { sportId, seriesId } = req.params;
-  const apiUrl = `http://142.93.36.1/api/v1/fetch_data?Action=listEvents&EventTypeID=${sportId}&CompetitionID=${seriesId}`;
+  const apiUrl = `${BASE_URL}?Action=listEvents&EventTypeID=${sportId}&CompetitionID=${seriesId}`;
   try {
     const response = await axios.get(apiUrl);
     return res.json(response.data);
@@ -48,7 +50,7 @@ const fetchMatchesBySeriesAndSportId = async (req, res) => {
 
 const fetchMarketsByMatchId = async (req, res) => {
   const matchId = req.params.matchId;
-  const apiUrl = `http://142.93.36.1/api/v1/fetch_data?Action=listMarketTypes&EventID=${matchId}`;
+  const apiUrl = `${BASE_URL}?Action=listMarketTypes&EventID=${matchId}`;
   try {
     const response = await axios.get(apiUrl);
     return res.json(response.data);
@@ -60,7 +62,7 @@ const fetchMarketsByMatchId = async (req, res) => {
 
 const fetchMarketSelections = async (req, res) => {
   const marketId = req.params.marketId;
-  const apiUrl = `http://142.93.36.1/api/v1/fetch_data?Action=listMarketRunner&MarketID=${marketId}`;
+  const apiUrl = `${BASE_URL}?Action=listMarketRunner&MarketID=${marketId}`;
   try {
     const response = await axios.get(apiUrl);
     return res.json(response.data);
@@ -75,7 +77,7 @@ const fetchMarketSelections = async (req, res) => {
 
 const fetchMarketOdds = async (req, res) => {
   const marketId = req.params.marketId;
-  const apiUrl = `http://142.93.36.1/api/v1/listMarketBookOdds?market_id=${marketId}`;
+  const apiUrl = `${BASE_URL}?Action=listMarketBookOdds&market_id=${marketId}`;
   try {
     const response = await axios.get(apiUrl);
     return res.json(response.data);
@@ -87,7 +89,7 @@ const fetchMarketOdds = async (req, res) => {
 
 const fetchSessionDataByMatchId = async (req, res) => {
   const matchId = req.params.matchId;
-  const apiUrl = `http://142.93.36.1/api/v1/listMarketBookSession?match_id=${matchId}`;
+  const apiUrl = `${BASE_URL}?Action=listMarketBookSession&match_id=${matchId}`;
   try {
     const response = await axios.get(apiUrl);
     return res.json(response.data);
@@ -99,7 +101,7 @@ const fetchSessionDataByMatchId = async (req, res) => {
 
 const fetchScore = async (req, res) => {
   const matchId = req.params.matchId;
-  const apiUrl = `http://142.93.36.1/api/v1/score?match_id=${matchId}`;
+  const apiUrl = `${BASE_URL}?Action=score&match_id=${matchId}`;
   try {
     const response = await axios.get(apiUrl);
     return res.json(response.data);
